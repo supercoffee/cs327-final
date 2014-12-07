@@ -34,8 +34,4 @@ $app->get('/', function () use ($app){
     return $app['twig']->render('orders.twig', array('orders'=>$orders));
 });
 
-$app->get('/hello/{name}', function ($name) use ($app) {
-    return $app['twig']->render('index.twig', array('name'=>$name));
-});
-
 $app->run();
