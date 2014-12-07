@@ -1,0 +1,48 @@
+{% extends 'base.twig' %}
+
+{% block jumbo %}
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>{{ customer.CustName }}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <p>{{ customer.Street }}</p>
+            <p>{{ customer.City }}, {{ customer.State }} {{ customer.Zip }}</p>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <table class="table">
+        <caption>Order History</caption>
+        <thead>
+        <tr>
+            <th>Order #</th>
+            <th>SKU</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Unit Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+
+            <tr>
+                <td>{{ item.OrderNum }}</td>
+                <td>{{ item.SKU }}</td>
+                <td>{{ item.OrdQty }}</td>
+                <td>{{ item.Description }}</td>
+                <td>{{ item.UnitPrice }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

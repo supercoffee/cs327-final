@@ -1,0 +1,54 @@
+{% extends 'base.twig' %}
+{% block content %}
+
+    <div class="row summary-bar">
+
+        <div class="col-sm-3">
+            <p>Total Orders: {{ orders|length }}</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Sales total: {{ summary.sales }}</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Items sold: {{ summary.items }}</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Total weight: {{ summary.weight }}</p>
+        </div>
+
+
+    </div>
+
+    <table class="table">
+        <caption>Orders</caption>
+        <thead>
+        <tr>
+            <th>Order #</th>
+            <th>Customer #</th>
+            <th>Customer</th>
+            <th>Order Date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+
+                <tr>
+                    <th>
+                        <a href="/order/{{ order.OrderNum }}">{{order.OrderNum}}</a>
+                    </th>
+                    <th>
+                        <a href="/customer/{{ order.CustNum }}">{{order.CustNum}}</a>
+                    </th>
+                    <th>
+                        <a href="/customer/{{ order.CustNum }}">{{order.CustName}}</a>
+                    </th>
+                    <th>{{order.OrderDate}}</th>
+                    <th>{{order.Status}}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
