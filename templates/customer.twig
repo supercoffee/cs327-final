@@ -19,30 +19,12 @@
 
 {% block content %}
 
-    <table class="table">
-        <caption>Order History</caption>
-        <thead>
-        <tr>
-            <th>Order #</th>
-            <th>SKU</th>
-            <th>Quantity</th>
-            <th>Description</th>
-            <th>Unit Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in items %}
+    <div class="row">
+        <div class="col-md-12 bg-info">
+            {% include 'order_details.twig' %}
+        </div>
+    </div>
 
-            <tr>
-                <td>{{ item.OrderNum }}</td>
-                <td>{{ item.SKU }}</td>
-                <td>{{ item.OrdQty }}</td>
-                <td>{{ item.Description }}</td>
-                <td>{{ item.UnitPrice }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
 
 {% endblock %}

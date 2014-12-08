@@ -1,55 +1,34 @@
-{% extends 'base.twig' %}
+<table class="table table-striped">
+    <caption>Order details</caption>
+    <thead>
+    <tr>
+        <th>SKU</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Weight</th>
+        <th>Extended price</th>
+        <th>Extended Weight</th>
+        <th>Profit</th>
+    </tr>
+    </thead>
 
-{% block jumbo %}
-    <div class="row">
-        <div class="col-sm-6">
-            <h1>Order # {{ order.OrderNum }}</h1>
-        </div>
-        <div class="col-sm-6">
-
-            <h2>Order Date: {{ order.OrderDate }}</h2>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <p>{{ order.CustName }}</p>
-            <p>{{ order.Street }}</p>
-            <p>{{ order.City }}, {{ order.State }} {{ order.Zip }}</p>
-
-        </div>
-    </div>
-
-{% endblock %}
-
-{% block content %}
-
-    <table class="table table-striped">
-        <caption>Order details</caption>
-        <thead>
+    {% set total = 0 %}
+    <tbody>
+    {% for item in items %}
         <tr>
-            <th>SKU</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Weight</th>
-            <th>Extended price</th>
-            <th>Extended Weight</th>
+            <td>{{item.SKU}}</td>
+            <td>{{item.Description}}</td>
+            <td>${{item.UnitPrice}}</td>
+            <td>{{item.OrdQty}}</td>
+            <td>{{item.UnitWeight}}</td>
+            <td>${{item.UnitPrice * item.OrdQty}}</td>
+            <td>{{item.UnitWeight * item.OrdQty}}</td>
+            <td>${{ item.UnitPrice * item.OrdQty - item.Cost * item.OrdQty }}</td>
+
+            {% set total = total + item.UnitPrice * item.OrdQty %}
         </tr>
-        </thead>
-        <tbody>
-        {% for item in items %}
-           <tr>
-                <td>{{item.SKU}}</td>
-                <td>{{item.Description}}</td>
-                <td>{{item.UnitPrice}}</td>
-                <td>{{item.OrdQty}}</td>
-                <td>{{item.UnitWeight}}</td>
-                <td>{{item.UnitPrice * item.OrdQty}}</td>
-                <td>{{item.UnitWeight * item.OrdQty}}</td>
-           </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <p class="bg-info" align="right">Order total: ${{total}}</p>
-{% endblock %}
+    {% endfor %}
+    </tbody>
+</table>
+<p align="right">Order total: ${{total|number_format(2)}}</p>

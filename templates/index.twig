@@ -7,7 +7,7 @@
             <p>Total Orders: {{ orders|length }}</p>
         </div>
         <div class="col-sm-3">
-            <p>Sales total: {{ summary.sales }}</p>
+            <p>Sales total: ${{ summary.sales|number_format(2) }}</p>
         </div>
         <div class="col-sm-3">
             <p>Items sold: {{ summary.items }}</p>
@@ -15,40 +15,42 @@
         <div class="col-sm-3">
             <p>Total weight: {{ summary.weight }}</p>
         </div>
+        <div class="col-sm-3">
+            <p>Total profit: ${{ summary.totalProfit|number_format(2) }}</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Average order amount: ${{ summary.averageOrder|number_format(2) }}</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Average order profit: ${{ summary.averageProfit|number_format(2) }}</p>
+        </div>
 
 
     </div>
 
-    <table class="table">
-        <caption>Orders</caption>
-        <thead>
-        <tr>
-            <th>Order #</th>
-            <th>Customer #</th>
-            <th>Customer</th>
-            <th>Order Date</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for order in orders %}
+    {% for order in orders %}
 
-                <tr>
-                    <th>
-                        <a href="/order/{{ order.OrderNum }}">{{order.OrderNum}}</a>
-                    </th>
-                    <th>
-                        <a href="/customer/{{ order.CustNum }}">{{order.CustNum}}</a>
-                    </th>
-                    <th>
-                        <a href="/customer/{{ order.CustNum }}">{{order.CustName}}</a>
-                    </th>
-                    <th>{{order.OrderDate}}</th>
-                    <th>{{order.Status}}</th>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="row bg-info">
+            <div class="col-md-4">
+                <h5><a href="/customer/{{ order.CustNum }}">{{ order.CustName }}</a></h5>
+                <p>{{ order.Street }}</p>
+                <p>{{ order.City }}, {{ order.State }} {{ order.Zip }}</p>
+            </div>
+            <div class="col-md-4">
+
+                <h5><a href="/order/{{ order.OrderNum }}">Order# {{ order.OrderNum }}</a></h5>
+            </div>
+            <div class="col-md-4">
+                <h5>Order Date: {{ order.OrderDate }}</h5>
+            </div>
+
+            <div class="col-md-12 bg-warning order-details">
+                {% include 'order_details.twig' with {'items': order.items } %}
+            </div>
+
+        </div>
+
+    {% endfor %}
 
 
 {% endblock %}
